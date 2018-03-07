@@ -254,14 +254,6 @@ export class FruitApplicationServiceProxy {
         return Observable.of<Fruitdto>(<any>null);
     }
 
-    /**
-     * @name (optional) 
-     * @colour (optional) 
-     * @lastModificationTime (optional) 
-     * @lastModifierUserId (optional) 
-     * @creatorUserId (optional) 
-     * @return Success
-     */
     getAll(sorting: string, skipCount: number, maxResultCount: number): Observable<PagedResultDtoOfFruitdto> {
         let url_ = this.baseUrl + "/api/services/app/fruitApplication/GetAll?";
         if (sorting !== undefined)
@@ -1034,6 +1026,118 @@ export class SupplierServiceProxy {
     /**
      * @return Success
      */
+    getFruits(supplierId: number): Observable<SupplierFruitDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Supplier/GetFruits?";
+        if (supplierId === undefined || supplierId === null)
+            throw new Error("The parameter 'supplierId' must be defined and cannot be null.");
+        else
+            url_ += "supplierId=" + encodeURIComponent("" + supplierId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetFruits(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetFruits(<any>response_);
+                } catch (e) {
+                    return <Observable<SupplierFruitDto[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<SupplierFruitDto[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetFruits(response: Response): Observable<SupplierFruitDto[]> {
+        const status = response.status;
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(SupplierFruitDto.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<SupplierFruitDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAFruit(fruitId: number, supplierId: number): Observable<SupplierFruitDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Supplier/GetAFruit?";
+        if (fruitId === undefined || fruitId === null)
+            throw new Error("The parameter 'fruitId' must be defined and cannot be null.");
+        else
+            url_ += "fruitId=" + encodeURIComponent("" + fruitId) + "&"; 
+        if (supplierId === undefined || supplierId === null)
+            throw new Error("The parameter 'supplierId' must be defined and cannot be null.");
+        else
+            url_ += "supplierId=" + encodeURIComponent("" + supplierId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetAFruit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAFruit(<any>response_);
+                } catch (e) {
+                    return <Observable<SupplierFruitDto[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<SupplierFruitDto[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAFruit(response: Response): Observable<SupplierFruitDto[]> {
+        const status = response.status;
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(SupplierFruitDto.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<SupplierFruitDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     get(id: number): Observable<SupplierDto> {
         let url_ = this.baseUrl + "/api/services/app/Supplier/Get?";
         if (id === undefined || id === null)
@@ -1081,16 +1185,6 @@ export class SupplierServiceProxy {
         return Observable.of<SupplierDto>(<any>null);
     }
 
-    /**
-     * @name (optional) 
-     * @contact (optional) 
-     * @phone (optional) 
-     * @email (optional) 
-     * @lastModificationTime (optional) 
-     * @lastModifierUserId (optional) 
-     * @creatorUserId (optional) 
-     * @return Success
-     */
     getAll(sorting: string, skipCount: number, maxResultCount: number): Observable<PagedResultDtoOfSupplierDto> {
         let url_ = this.baseUrl + "/api/services/app/Supplier/GetAll?";
         if (skipCount === undefined || skipCount === null)
@@ -3233,6 +3327,60 @@ export interface IUpdateFruitDto {
     fruitId: number;
     supplierId: number;
     price: number;
+}
+
+export class SupplierFruitDto implements ISupplierFruitDto {
+    name: string;
+    colour: string;
+    price: number;
+    fruitId: number;
+
+    constructor(data?: ISupplierFruitDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.colour = data["colour"];
+            this.price = data["price"];
+            this.fruitId = data["fruitId"];
+        }
+    }
+
+    static fromJS(data: any): SupplierFruitDto {
+        let result = new SupplierFruitDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["colour"] = this.colour;
+        data["price"] = this.price;
+        data["fruitId"] = this.fruitId;
+        return data; 
+    }
+
+    clone() {
+        const json = this.toJSON();
+        let result = new SupplierFruitDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ISupplierFruitDto {
+    name: string;
+    colour: string;
+    price: number;
+    fruitId: number;
 }
 
 export class SupplierDto implements ISupplierDto {

@@ -1,0 +1,51 @@
+<div bsModal #editSupplierFruitModal="bs-modal" class="modal fade" (onShown)="onShown()" tabindex="-1" role="dialog" aria-labelledby="editSupplierFruitModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+
+    <div #modalContent class="modal-content">
+      <form #editSupplierFruitForm="ngForm">
+
+        <div class="modal-header">
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <span>Insert new price</span>
+          </h4>
+        </div>
+
+
+        <div class="modal-body">
+
+          <div class="row clearfix">
+            <div class="col-sm-6">
+              <label for="fruitprice" class="form-label">Fruit</label>
+              <p *ngFor="let f of sf" class="m-b-20">
+                {{f.name}}
+              </p>
+
+              <div class="form-group form-float">
+
+                <div class="form-line">
+                  <input required autocomplete="off" id="fruitprice" type="text" name="fruitPrice" [(ngModel)]="fruit.price" class="form-control">
+                  <label for="fruitprice" class="form-label">Supplier's Price</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default waves-effect" (click)="close()">
+            Cancel
+          </button>
+          <button [disabled]="!editSupplierFruitForm.form.valid" class="btn btn-primary waves-effect" (click)="save()">
+            Update
+          </button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>

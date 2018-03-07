@@ -12,7 +12,6 @@ namespace fruitShop.Domain
     {
 
 
-        public int fruitId { get; set; }
 
         public SupplierFruit(supplier s) {
             if (s == null)
@@ -32,6 +31,12 @@ namespace fruitShop.Domain
         [ForeignKey("supplierId")]
         public supplier supplier { get; protected set; }
         public Int32 supplierId { get; protected set; }
+
+        [ForeignKey("fruitId")]
+        public fruit fruit { get; protected set; }
+        public int fruitId { get; set; }
+
+
 
         #endregion
 

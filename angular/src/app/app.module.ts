@@ -14,6 +14,8 @@ import { AbpModule } from '@abp/abp.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserModule} from '@angular/platform-browser';
 
 
 import { HomeComponent } from '@app/home/home.component';
@@ -40,8 +42,12 @@ import { EditFruitComponent } from './fruit/edit-fruit/edit-fruit.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './supplier/edit-supplier/edit-supplier.component';
-import { SelectSupplierComponent } from './fruit/select-supplier/select-supplier.componen;
-import { ViewSupplierComponent } from './supplier/view-supplier/view-supplier.component't';
+import { SelectSupplierComponent } from './fruit/select-supplier/select-supplier.component';
+import { ViewSupplierComponent } from './supplier/view-supplier/view-supplier.component';
+import { SupplierRootComponent } from 'app/supplier/supplier-root.component';
+import { EditSupplierFruitComponent } from './supplier/edit-supplier-fruit/edit-supplier-fruit.component';
+import { AddSupplierFruitComponent } from './supplier/add-supplier-fruit/add-supplier-fruit.component';
+
 
 @NgModule({
     declarations: [
@@ -69,8 +75,11 @@ import { ViewSupplierComponent } from './supplier/view-supplier/view-supplier.co
         SupplierComponent,
         AddSupplierComponent,
         EditSupplierComponent,
-        SelectSupplierCompone,
-        ViewSupplierComponentnt,
+        SelectSupplierComponent,
+        ViewSupplierComponent,
+        SupplierRootComponent,
+        EditSupplierFruitComponent,
+        AddSupplierFruitComponent,
 
     
     ],
@@ -85,6 +94,8 @@ import { ViewSupplierComponent } from './supplier/view-supplier/view-supplier.co
         ServiceProxyModule,
         SharedModule,
         NgxPaginationModule,
+
+
 
     ],
     providers: [

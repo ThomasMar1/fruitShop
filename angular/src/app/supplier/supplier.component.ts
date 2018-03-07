@@ -4,13 +4,13 @@ import { SupplierServiceProxy, SupplierDto, PagedResultDtoOfSupplierDto, UpdateS
 import { PagedListingComponentBase, PagedRequestDto } from "shared/paged-listing-component-base";
 import { AddSupplierComponent } from "app/supplier/add-supplier/add-supplier.component";
 import { EditSupplierComponent } from "app/supplier/edit-supplier/edit-supplier.component";
+import { ViewSupplierComponent } from 'app/supplier/view-supplier/view-supplier.component';
 
 
 
 @Component({
   selector: 'app-supplier',
   templateUrl: './supplier.component.html',
-  styleUrls: ['./supplier.component.css'],
   animations: [appModuleAnimation()]
 
 })
@@ -18,6 +18,8 @@ export class SupplierComponent extends PagedListingComponentBase<SupplierDto> {
 
   @ViewChild('addSupplierModal') addSupplierModal: AddSupplierComponent;
   @ViewChild('editSupplierModal') editSupplierModal: EditSupplierComponent;
+  @ViewChild('viewSupplierComponenet') view: ViewSupplierComponent;
+  hidden = false;
 
   suppliers: SupplierDto[] = [];
 
@@ -28,8 +30,9 @@ export class SupplierComponent extends PagedListingComponentBase<SupplierDto> {
     super(injector);
   }
 
+  
   list(request: PagedRequestDto, pageNumber: number, finishedCallback: Function): void {
-    this._supplierService.getAll('',request.skipCount, request.maxResultCount)
+    this._supplierService.getAll('', request.skipCount, request.maxResultCount)
       .finally(() => {
         finishedCallback();
       })
@@ -40,8 +43,7 @@ export class SupplierComponent extends PagedListingComponentBase<SupplierDto> {
   }
 
 
-
-  delete(suppliers: SupplierDto): void {
+  protected delete(suppliers: SupplierDto): void {
     abp.message.confirm(
       "Delete '" + suppliers.name + "'?",
       (result: boolean) => {
@@ -59,10 +61,13 @@ export class SupplierComponent extends PagedListingComponentBase<SupplierDto> {
   }
   addSupplier(): void {
     this.addSupplierModal.show();
-}
+  }
 
   editSupplier(suppliers: UpdateSupplier): void {
     this.editSupplierModal.show(suppliers.id);
-}
+  }
+
+
+
 
 }

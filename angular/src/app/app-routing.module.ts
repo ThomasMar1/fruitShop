@@ -9,6 +9,9 @@ import { TenantsComponent } from './tenants/tenants.component';
 import { RolesComponent } from "app/roles/roles.component";
 import { FruitComponent } from "./fruit/fruit.component";
 import { SupplierComponent } from "./supplier/supplier.component";
+import { ViewSupplierComponent } from 'app/supplier/view-supplier/view-supplier.component';
+import { SupplierRootComponent } from './supplier/supplier-root.component';
+
 
 @NgModule({
     imports: [
@@ -17,17 +20,61 @@ import { SupplierComponent } from "./supplier/supplier.component";
                 path: '',
                 component: AppComponent,
                 children: [
-                    { path: 'home', component: HomeComponent,  canActivate: [AppRouteGuard] },
-                    { path: 'users', component: UsersComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
-                    { path: 'roles', component: RolesComponent, data: { permission: 'Pages.Roles' }, canActivate: [AppRouteGuard] },
-                    { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
-                    { path: 'about', component: AboutComponent },
-                    { path: 'fruit', component: FruitComponent},
-                    { path: 'supplier', component: SupplierComponent}
+                    {
+                        path: 'home',
+                        component: HomeComponent,
+                        canActivate: [AppRouteGuard]
+                    },
+                    {
+                        path: 'users',
+                        component: UsersComponent,
+                        data: { permission: 'Pages.Users' },
+                        canActivate: [AppRouteGuard]
+                    },
+                    {
+                        path: 'roles',
+                        component: RolesComponent,
+                        data: { permission: 'Pages.Roles' },
+                        canActivate: [AppRouteGuard]
+                    },
+                    {
+                        path: 'tenants',
+                        component: TenantsComponent,
+                        data: { permission: 'Pages.Tenants' },
+                        canActivate: [AppRouteGuard]
+                    },
+                    {
+                        path: 'about',
+                        component: AboutComponent
+                    },
+                    {
+                        path: 'fruit',
+                        component: FruitComponent
+                    },
+                    {
+                        path: 'supplier',
+                        component: SupplierRootComponent,
+                        children: [
+                            {
+                                path: 'supplierlist',
+                                component: SupplierComponent
+                            },
+                            {
+                                path: 'detail/:id',
+                                component: ViewSupplierComponent
+                            }
+
+                        ]
+                    },
+
                 ]
-            }
-        ])
+            },
+        
+
+            
+        ]),
+
     ],
-    exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

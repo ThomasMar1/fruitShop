@@ -34,16 +34,16 @@ export class RolesComponent extends PagedListingComponentBase<RoleDto> {
 		});
 	}
 
-	delete(role: RoleDto): void {
+	delete(roles: RoleDto): void {
 		abp.message.confirm(
-			"Remove Users from Role and delete Role '"+ role.displayName +"'?",
+			"Remove Users from Role and delete Role '"+ roles.displayName +"'?",
 			"Permanently delete this Role",
 			(result:boolean) =>{
 				if(result)
 				{
-					this.rolesService.delete(role.id)
+					this.rolesService.delete(roles.id)
 						.finally(() => {
-							abp.notify.info("Deleted Role: " + role.displayName );
+							abp.notify.info("Deleted Role: " + roles.displayName );
 							this.refresh();
 						})
 						.subscribe(() => { });

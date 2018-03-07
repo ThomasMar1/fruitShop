@@ -14,7 +14,9 @@ export class SideBarNavComponent extends AppComponentBase {
         new MenuItem(this.l("Users"), "Pages.Users", "people", "/app/users"),
         new MenuItem(this.l("Roles"), "Pages.Roles", "local_offer", "/app/roles"),
         new MenuItem("Fruit Stock", "", "list", "/app/fruit"),
-        new MenuItem("Suppliers", "", "local_shipping", "/app/supplier"),
+        new MenuItem("Suppliers", "", "local_shipping", "/app/supplier/supplierlist"),
+
+
     ];
 
     constructor(

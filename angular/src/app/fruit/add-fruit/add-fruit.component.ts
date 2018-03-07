@@ -2,7 +2,6 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, OnIni
 import { ModalDirective } from 'ngx-bootstrap';
 import { FruitApplicationServiceProxy, AddFruit, SupplierDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
-import { SelectSupplierComponent} from "app/fruit/select-supplier/select-supplier.component"
 
 import * as _ from "lodash";
 

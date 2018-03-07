@@ -1,0 +1,65 @@
+<div bsModal #addSupplierFruitModal="bs-modal" class="modal fade" (onShown)="onShown()" tabindex="-1" role="dialog" aria-labelledby="addSupplierFruitModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+
+    <div #modalContent class="modal-content">
+      <form #addSupplierFruitForm="ngForm">
+
+        <div class="modal-header">
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <span>Add a new fruit</span>
+          </h4>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="row clearfix">
+            <div class="col-sm-12">
+              <div class="form-group form-float">
+
+                <div class="form-line">
+
+                  <select class="form-control" name="fruity" [(ngModel)]="fruits.fruitId">
+                    <option selected label="Select Fruit">0</option>
+                    <option *ngFor="let c of fruitList" label="{{c.name}}">{{c.id}}</option>
+
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="row clearfix">
+            <div class="col-sm-6">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <input required autocomplete="off" id="fruitprice" type="text" name="fruitPrice" [(ngModel)]="fruits.price" class="form-control">
+                  <label for="fruitprice" class="form-label">Supplier's Price</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default waves-effect" (click)="close()">
+            Cancel
+          </button>
+          <button [disabled]="!addSupplierFruitForm.form.valid" class="btn btn-primary waves-effect" (click)="save()">
+            Add
+          </button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
